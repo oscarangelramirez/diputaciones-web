@@ -1,0 +1,285 @@
+<div fxLayout="row wrap" fxFlex="100">
+    <div fxLayout="row" style="background-color: white;" fxLayoutAlign="end" fxFlexAlign="end" fxFlex="100">
+        <h3 style="margin-right: 10px;"><b>Estadisticas Elecciones</b></h3>
+    </div>
+    <div fxLayout="row" class="divFilter" fxFlex="20">
+        <div fxLayout="row wrap" fxFlex="100" fxFlexAlign="start" fxLayoutAlign="start">
+            <mat-card fxFlex="100" style="background-color: transparent;">
+                <mat-card-title>
+                    <span class="title">Filtros</span>
+                </mat-card-title>
+                <mat-divider inset></mat-divider>
+                <mat-card-content class="cardcontent">
+                    <div fxLayout="row" fxFlex="100" fxLayoutGap="15px">
+
+                        <form [formGroup]="form" fxLayout="column" fxFlex="100">
+                            <div fxLayout="row " fxFlex="100">
+
+                                <mat-form-field fxFlex="100" appearance="fill">
+                                    <mat-label>Circunscripcion</mat-label>
+                                    <mat-select formControlName="Id_Circunscripcion" value="4"
+                                        (selectionChange)="changeCircunscripcion($event)">
+                                        <mat-option *ngFor="let tipo of listCircunscripcion" [value]="tipo.Id">
+                                            {{tipo.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row " fxFlex="100">
+
+                                <mat-form-field fxFlex="100" appearance="fill">
+                                    <mat-label>Estados</mat-label>
+                                    <mat-select formControlName="Id_Estado" (selectionChange)="changeEstado($event)">
+                                        <mat-option [value]="null">Seleccione</mat-option>
+                                        <mat-option *ngFor="let tipo of listEstados" [value]="tipo.Id">
+                                            {{tipo.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row" fxFlex="100">
+                                <mat-form-field fxFlex="100" appearance="fill">
+                                    <mat-label>Distritos</mat-label>
+                                    <mat-select formControlName="Id_Distrito">
+                                        <mat-option [value]="null">Seleccione</mat-option>
+                                        <mat-option *ngFor="let tipo of listDistritos" [value]="tipo.Id">
+                                            {{tipo.Descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxFlex="100" fxLayoutGap="15px" fxFlexAlign="end" fxLayoutAlign="end">
+                                <button mat-raised-button color="default" (click)="onSubmit()"
+                                    [disabled]="this.form.invalid">Consultar</button>
+                            </div>
+                        </form>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="row" fxFlex="80">
+        <div fxLayout="row wrap" fxFlex="100">
+
+            <div fxLayout="row" fxFlex="100" class="divDetalleGeneral" fxLayoutGap="10">
+                @if(resultGlobal)
+                {
+                <div fxFlexFill fxFlex="100%" fxLayout="row wrap" fxLayoutGap="10px" fxLayoutGap.xs="0px"
+                    fxFlexAlign="center" fxLayoutAlign="center" class="contentAtention">
+                    <div class="divClasificacion" fxFlex="20%" fxFlex.xs="100%" fxLayout="row wrap">
+                        <div fxLayout="row" fxFlex="100">
+                            <span class="titleDescripcion">Total de votos</span>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
+                            <span class="titleTotal">{{resultGlobal.NumeroVotos}}</span>
+                        </div>
+                    </div>
+                    <div class="divClasificacion" fxFlex="20%" fxFlex.xs="100%" fxLayout="row wrap">
+                        <div fxLayout="row" fxFlex="100">
+                            <span class="titleDescripcion">Numero de Secciones</span>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
+                            <span class="titleTotal">{{resultGlobal.NumeroDistritos}}</span>
+                        </div>
+                    </div>
+
+                    <div class="divClasificacion" fxFlex="20%" fxFlex.xs="100%" fxLayout="row wrap">
+                        <div fxLayout="row" fxFlex="100">
+                            <span class="titleDescripcion">Secciones Ganadas</span>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
+                            <span class="titleTotal">{{resultGlobal.Ganados}}</span>
+                        </div>
+                    </div>
+                    <div class="divClasificacion" fxFlex="20%" fxFlex.xs="100%" fxLayout="row wrap">
+                        <div fxLayout="row" fxFlex="100">
+                            <span class="titleDescripcion">Secciones Perdidas</span>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
+                            <span class="titleTotal">{{resultGlobal.Perdidos}}</span>
+                        </div>
+                    </div>
+                </div>
+                }
+                <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="small" type="ball-clip-rotate" color="#fff"
+                    [fullScreen]="false" name="global">
+                    <p style="color: white"> Cargando </p>
+                </ngx-spinner>
+
+            </div>
+
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="center" fxFlexAlign="center" class="divDetalleDistrito">
+                <div fxLayout="row wrap" fxFlex="80" fxFlexAlign="start" fxLayoutAlign="start">
+                    <div fxLayout="row" fxFlex="100" style="background-color:#cacaca;" fxFlexAlign="end"
+                        fxLayoutAlign="end">
+                        <div fxLayout="column" fxFlex="10" fxFlexAlign="end" fxLayoutAlign="end">
+                            <div fxLayout="row">
+                                <button mat-icon-button [matMenuTriggerFor]="menuConfig">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                            </div>
+                            <mat-menu #menu="matMenu">
+
+                                <div fxLayout="row" fxFlex="100">
+                                    <span style="margin-top: 10px;">
+                                        Ganadas
+                                    </span>
+                                    <mat-checkbox [(ngModel)]="checkFilterGanadas" (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterGanadas = true;  getListFilter()"></mat-checkbox>
+                                </div>
+                                <div fxLayout="row" fxFlex="100">
+                                    <span style="margin-top: 10px;">
+                                        Ganadas Mayor {{porcentaje}}%
+                                    </span>
+                                    <mat-checkbox [(ngModel)]="checkFilterGanadasMayor" (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterGanadasMayor = true; getListFilter()"></mat-checkbox>
+                                </div>
+                                <div fxLayout="row" fxFlex="100">
+                                    <span style="margin-top: 10px;">
+                                        Ganadas Menor {{porcentaje}}%
+                                    </span>
+                                    <mat-checkbox [(ngModel)]="checkFilterGanadasMenor" (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterGanadasMenor = true; getListFilter()"></mat-checkbox>
+                                </div>
+
+                                <mat-divider inset></mat-divider>
+
+                                <div fxLayout="row" fxFlex="100">
+                                    <span style="margin-top: 10px;">
+                                        Perdidas
+                                    </span>
+                                    <mat-checkbox [(ngModel)]="checkFilterPerdidas" (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterPerdidas= true; getListFilter()"></mat-checkbox>
+                                </div>
+
+
+                                <div fxLayout="row" fxFlex="100">
+                                    <span style="margin-top: 10px;">
+                                        Perdidas Mayor {{porcentaje}}%
+                                    </span>
+                                    <mat-checkbox [(ngModel)]="checkFilterPerdidasMayor" (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterPerdidasMayor = true; getListFilter()"></mat-checkbox>
+                                </div>
+
+                                <div fxLayout="row" fxFlex="100">
+
+                                    <span style="margin-top: 10px;">
+                                        Perdidas Menor {{porcentaje}}%
+                                    </span>
+                                    <mat-checkbox [(ngModel)]="checkFilterPerdidasMenor" (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterPerdidasMenor = true; getListFilter()"></mat-checkbox>
+                                </div>
+                            </mat-menu>
+                            <mat-menu #menuConfig="matMenu">
+                                <div fxLayout="row" fxLayoutAlign="center" fxFlexAlign="center"><input type="number" class="form-control" (click)="$event.stopPropagation();"
+                                        [(ngModel)]="porcentaje"> <mat-icon (click)="getListFilter()">save</mat-icon>
+                                </div>
+                            </mat-menu>
+
+
+                        </div>
+
+
+                    </div>
+                    <div fxLayout="row" fxFlex="100" class="containerList">
+                        <mat-table [dataSource]="dataSource" class=" mat-elevation-z8">
+                            <ng-container matColumnDef="Color">
+                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element" [ngStyle]="{
+                                        'background-color': 
+                                        element.Partido_Ganador !== 'MORENA'? 
+                                        element.DiferenciaMorena <= this.porcentaje ? 'Yellow' :'RED' 
+                                        :
+                                        element.DiferenciaSegundo <= this.porcentaje ? 'Yellow' :'GREEN' 
+                                         }">
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="Distrito">
+                                <mat-header-cell *matHeaderCellDef>Distrito</mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element">
+                                    {{element.Distrito}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Seccion">
+                                <mat-header-cell *matHeaderCellDef>Seccion</mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element">
+                                    {{element.Seccion}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Ganador">
+                                <mat-header-cell *matHeaderCellDef>Ganador</mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element">
+                                    {{element.Partido_Ganador}}
+                                </mat-cell>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="Porcentaje">
+                                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                <mat-cell mat-cell *matCellDef="let element">
+                                    <div fxLayout="column" fxFlex="100" fxLayoutAlign="center" fxFlexAlign="center">
+
+                                        <div fxLayout="row" fxFlex="100">
+                                            <div [ngClass]="'divPorcentaje ' + (element.Partido_Ganador != 'MORENA' ? 'otro':'morena')"
+                                                [style.width]="GetPorcentaje(element.PorcentajeGanador)">
+                                            </div>
+                                            <span class="spanPorcentaje">{{element.PorcentajeGanador | number :
+                                                '1.0-2'}}</span>
+                                        </div>
+                                        @if(element.Partido_Ganador != 'MORENA')
+                                        {
+                                        <div fxLayout="row" fxFlex="100">
+                                            <div class="divPorcentaje morena"
+                                                [style.width]="GetPorcentaje(element.PorcentajeMorena)">
+
+                                            </div>
+                                            <span class="spanPorcentaje"> {{element.PorcentajeMorena | number :
+                                                '1.0-2'}}</span>
+                                        </div>
+                                        }
+                                        @else {
+                                        <div fxLayout="row" fxFlex="100">
+                                            <div class="divPorcentaje otro"
+                                                [style.width]="GetPorcentaje(element.PorcentajeSegundo)">
+
+                                            </div>
+                                            <span class="spanPorcentaje"> {{element.PorcentajeSegundo| number :
+                                                '1.0-2'}}</span>
+                                        </div>
+                                        }
+
+                                    </div>
+
+                                </mat-cell>
+                            </ng-container>
+
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                    <div fxLayout="row" fxFlex="100" fxLayoutAlign="end" fxFlexAlign="end">
+                        <mat-paginator fxFlex="100" class="mat-elevation-z8" [pageSize]="15"
+                            [pageSizeOptions]="[15, 30, 45, 60]">
+                        </mat-paginator>
+                    </div>
+
+                </div>
+
+                <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="small" type="ball-clip-rotate" color="#fff"
+                    [fullScreen]="false" name="detail">
+                    <p style="color: white"> Cargando </p>
+                </ngx-spinner>
+            </div>
+
+        </div>
+    </div>
+
+</div>

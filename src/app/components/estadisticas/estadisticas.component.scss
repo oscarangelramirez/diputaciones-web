@@ -1,0 +1,186 @@
+.divFilter
+{
+    background-color: #75153c;
+    box-shadow: 11px 10px 15px -3px rgba(0,0,0,0.1);
+    height: 90vh;
+    padding: 10px;
+    position:-webkit-sticky; position:sticky; top:0;
+}
+
+.divTitle
+{
+    background-color: red;
+}
+
+.divDetalleGeneral
+{
+    height: 15vh;
+    position: relative;
+    background-color: #DADADA;
+}
+
+.divDetalleDistrito
+{
+    height: 75vh;
+    position: relative;
+}
+
+.divDetail
+{
+    background-color: gray;
+    box-shadow: 11px 10px 15px -3px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.progressbar-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+.progressbar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: red($color: #000000);
+    z-index: -1;
+}
+.cardcontent{
+    margin-top: 20px;
+    background-color: transparent;
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+  
+
+  .title
+  {
+    margin-left: 15px;
+    color: white;
+  }
+
+  .divClasificacion {
+    height: 80px;
+    margin: 10px;
+    box-shadow: 1px 1px 4px 1px #ccc;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.titleTotal {
+    font-size: 15pt;
+    margin: 10px;
+}
+
+.titleDescripcion {
+    margin: 5px 10px;
+    font-weight: bold;
+    font-size: 10.5pt;
+}
+
+.morena{
+    background-color: #75153c;
+}
+.otro{
+    background-color: green;
+}
+.spanPorcentaje
+{
+    font-size: 7pt;
+    margin-top: -5px;
+    margin-left: 3px;
+}
+
+.divPorcentaje
+{
+    
+    height: 10px;
+    border-radius: 5px;
+}
+
+@media screen and (min-width: 1100px) {
+    .mat-column-Color {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 3% !important;
+      width: 3% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-Distrito {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 25% !important;
+      width: 25% !important;
+      font-weight: bold;
+
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-Seccion {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 10% !important;
+      width: 10% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    .mat-column-Ganador {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 20% !important;
+      width: 20% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+    .mat-column-Porcentaje {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 30% !important;
+      width: 30% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }      
+}
+::ng-deep .mat-mdc-menu-content 
+{
+  padding:10px 10px !important;
+}
