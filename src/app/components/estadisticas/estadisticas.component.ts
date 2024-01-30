@@ -25,7 +25,6 @@ export class EstadisticasComponent implements AfterViewInit {
 
   checkFilterGanadas = false;
   checkFilterPerdidas = false;
-
   porcentaje: number = 10;
 
 
@@ -122,7 +121,7 @@ export class EstadisticasComponent implements AfterViewInit {
 
     if (this.checkFilterPerdidasMayor)
       this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaMorena > this.porcentaje && u.Partido_Ganador !== 'MORENA');
-    
+
     if (!this.checkFilterGanadas && !this.checkFilterPerdidas && !this.checkFilterPerdidasMenor && !this.checkFilterGanadasMenor && !this.checkFilterGanadasMayor && !this.checkFilterPerdidasMayor)
       this.dataSource.data = this.resultDetalle;
   }
