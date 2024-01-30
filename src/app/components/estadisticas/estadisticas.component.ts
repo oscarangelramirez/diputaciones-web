@@ -26,7 +26,7 @@ export class EstadisticasComponent implements AfterViewInit {
   checkFilterGanadas = false;
   checkFilterPerdidas = false;
 
-  porcentaje:number = 10; 
+  porcentaje: number = 10;
 
 
   resultGlobal: EstadisticasGlobal;
@@ -104,18 +104,25 @@ export class EstadisticasComponent implements AfterViewInit {
   }
 
   getListFilter() {
-    if (this.checkFilterGanadas)
-      this.dataSource.data = this.resultDetalle.filter(u => u.Partido_Ganador == 'MORENA');
-    if (this.checkFilterPerdidas)
-      this.dataSource.data = this.resultDetalle.filter(u => u.Partido_Ganador !== 'MORENA');
-    if (this.checkFilterPerdidasMenor)
-      this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaMorena <= this.porcentaje && u.Partido_Ganador !== 'MORENA');
-    if (this.checkFilterGanadasMenor)
-      this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaSegundo <= this.porcentaje && u.Partido_Ganador == 'MORENA');
+
     if (this.checkFilterGanadasMayor)
       this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaSegundo > this.porcentaje && u.Partido_Ganador == 'MORENA');
+
+    if (this.checkFilterGanadas)
+      this.dataSource.data = this.resultDetalle.filter(u => u.Partido_Ganador == 'MORENA'
+        && u.DiferenciaSegundo <= this.porcentaje && u.DiferenciaSegundo > 5);
+    if (this.checkFilterGanadasMenor)
+      this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaSegundo <= 5 && u.Partido_Ganador == 'MORENA');
+
+    if (this.checkFilterPerdidasMenor)
+      this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaMorena <= 5 && u.Partido_Ganador !== 'MORENA');
+
+    if (this.checkFilterPerdidas)
+      this.dataSource.data = this.resultDetalle.filter(u => u.Partido_Ganador !== 'MORENA'  &&   u.DiferenciaMorena <=10  &&  u.DiferenciaMorena  >5);
+
     if (this.checkFilterPerdidasMayor)
       this.dataSource.data = this.resultDetalle.filter(u => u.DiferenciaMorena > this.porcentaje && u.Partido_Ganador !== 'MORENA');
+    
     if (!this.checkFilterGanadas && !this.checkFilterPerdidas && !this.checkFilterPerdidasMenor && !this.checkFilterGanadasMenor && !this.checkFilterGanadasMayor && !this.checkFilterPerdidasMayor)
       this.dataSource.data = this.resultDetalle;
   }
@@ -125,8 +132,7 @@ export class EstadisticasComponent implements AfterViewInit {
     return porcentaje.toString() + '%';
   }
 
-  SetValues()
-  {
+  SetValues() {
     this.checkFilterPerdidasMenor = false;
     this.checkFilterGanadasMenor = false;
     this.checkFilterGanadasMayor = false;
