@@ -3,7 +3,11 @@
         <h3 style="margin-right: 10px;"><b>Estadisticas Elecciones</b></h3>
     </div>
     <div fxLayout="row" class="divFilter" fxFlex="20">
-        <div fxLayout="row wrap" fxFlex="100" fxFlexAlign="start" fxLayoutAlign="start">
+        <div fxLayout="row wrap" fxFlex="100" fxFlexAlign="start" fxLayoutAlign="start" style="position: relative;">
+            <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="small" type="ball-clip-rotate" color="#fff"
+                [fullScreen]="false" name="ngxall">
+                <p style="color: white"> Cargando </p>
+            </ngx-spinner>
             <mat-card fxFlex="100" style="background-color: transparent;">
                 <mat-card-title>
                     <span class="title">Filtros</span>
@@ -17,7 +21,7 @@
 
                                 <mat-form-field fxFlex="100" appearance="fill">
                                     <mat-label>Circunscripcion</mat-label>
-                                    <mat-select formControlName="Id_Circunscripcion" value="4"
+                                    <mat-select  [(ngModel)]="DefaultCircunscripcion" formControlName="Id_Circunscripcion" value="4"
                                         (selectionChange)="changeCircunscripcion($event)">
                                         <mat-option *ngFor="let tipo of listCircunscripcion" [value]="tipo.Id">
                                             {{tipo.Descripcion}}
@@ -72,7 +76,7 @@
                             <span class="titleDescripcion">Total de votos</span>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
-                            <span class="titleTotal">{{resultGlobal.NumeroVotos}}</span>
+                            <span class="titleTotal">{{resultGlobal.NumeroVotos | number: '2.'}}</span>
                         </div>
                     </div>
                     <div class="divClasificacion" fxFlex="20%" fxFlex.xs="100%" fxLayout="row wrap">
@@ -80,7 +84,7 @@
                             <span class="titleDescripcion">Numero de Secciones</span>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
-                            <span class="titleTotal">{{resultGlobal.NumeroDistritos}}</span>
+                            <span class="titleTotal">{{resultGlobal.NumeroDistritos | number: '2.'}}</span>
                         </div>
                     </div>
 
@@ -89,7 +93,7 @@
                             <span class="titleDescripcion">Secciones Ganadas</span>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
-                            <span class="titleTotal">{{resultGlobal.Ganados}}</span>
+                            <span class="titleTotal">{{resultGlobal.Ganados | number: '2.'}}</span>
                         </div>
                     </div>
                     <div class="divClasificacion" fxFlex="20%" fxFlex.xs="100%" fxLayout="row wrap">
@@ -97,7 +101,7 @@
                             <span class="titleDescripcion">Secciones Perdidas</span>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end center" fxFlex="100">
-                            <span class="titleTotal">{{resultGlobal.Perdidos}}</span>
+                            <span class="titleTotal">{{resultGlobal.Perdidos | number: '2.'}}</span>
                         </div>
                     </div>
                 </div>
@@ -110,11 +114,11 @@
             </div>
 
             <div fxLayout="row" fxFlex="100" fxLayoutAlign="center" fxFlexAlign="center" class="divDetalleDistrito">
-                <div fxLayout="row wrap" fxFlex="80" fxFlexAlign="start" fxLayoutAlign="start">
+                <div fxLayout="row wrap" fxFlex="90" fxFlexAlign="start" fxLayoutAlign="start">
                     <div fxLayout="row" fxFlex="100" style="background-color:#cacaca;" fxFlexAlign="end"
                         fxLayoutAlign="end">
                         <div fxLayout="column" fxFlex="10" fxFlexAlign="end" fxLayoutAlign="end">
-                            <div fxLayout="row">
+                            <div fxLayout="row" fxFlexAlign="end" fxLayoutAlign="end">
                                 <!-- <button mat-icon-button [matMenuTriggerFor]="menuConfig">
                                     <mat-icon>edit</mat-icon>
                                 </button> -->
@@ -126,73 +130,90 @@
                             <mat-menu #menu="matMenu">
 
                                 <div fxLayout="row" fxFlex="100">
-                                    <div style="background-color: #005100; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;"></div>
+                                    <div
+                                        style="background-color: #005100; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;">
+                                    </div>
                                     <span style="margin-top: 10px;">
-                                        Ganadas Ampliamente 
+                                        Ganadas Ampliamente
                                     </span>
-                                    <mat-checkbox [(ngModel)]="checkFilterGanadasMayor" (click)="$event.stopPropagation();"
-                                        (change)="SetValues(); checkFilterGanadasMayor = true; getListFilter()"></mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="checkFilterGanadasMayor"
+                                        (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterGanadasMayor = $event.checked; getListFilter()"></mat-checkbox>
                                 </div>
 
                                 <div fxLayout="row" fxFlex="100">
-                                    <div style="background-color: #00AE00; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;"></div>
+                                    <div
+                                        style="background-color: #00AE00; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;">
+                                    </div>
 
                                     <span style="margin-top: 10px;">
-                                        Ganado 
+                                        Ganado
                                     </span>
                                     <mat-checkbox [(ngModel)]="checkFilterGanadas" (click)="$event.stopPropagation();"
-                                        (change)="SetValues(); checkFilterGanadas = true;  getListFilter()"></mat-checkbox>
+                                        (change)="SetValues(); checkFilterGanadas = $event.checked;  getListFilter()"></mat-checkbox>
                                 </div>
-                              
+
                                 <div fxLayout="row" fxFlex="100">
-                                    <div style="background-color: #9EFFA2; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;"></div>
+                                    <div
+                                        style="background-color: #9EFFA2; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;">
+                                    </div>
 
                                     <span style="margin-top: 10px;">
-                                        Ganadas Competido 
+                                        Ganadas Competido
                                     </span>
-                                    <mat-checkbox [(ngModel)]="checkFilterGanadasMenor" (click)="$event.stopPropagation();"
-                                        (change)="SetValues(); checkFilterGanadasMenor = true; getListFilter()"></mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="checkFilterGanadasMenor"
+                                        (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterGanadasMenor = $event.checked; getListFilter()"></mat-checkbox>
                                 </div>
 
                                 <mat-divider inset></mat-divider>
 
-                               
+
 
 
                                 <div fxLayout="row" fxFlex="100">
-                                    <div style="background-color: #FFA29D; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;"></div>
+                                    <div
+                                        style="background-color: #FFA29D; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;">
+                                    </div>
 
                                     <span style="margin-top: 10px;">
-                                        Perdido Competido 
+                                        Perdido Competido
                                     </span>
-                                    <mat-checkbox [(ngModel)]="checkFilterPerdidasMenor" (click)="$event.stopPropagation();"
-                                        (change)="SetValues(); checkFilterPerdidasMenor = true; getListFilter()"></mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="checkFilterPerdidasMenor"
+                                        (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterPerdidasMenor = $event.checked; getListFilter()"></mat-checkbox>
                                 </div>
 
                                 <div fxLayout="row" fxFlex="100">
-                                    <div style="background-color: #FD4140; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;"></div>
+                                    <div
+                                        style="background-color: #FD4140; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;">
+                                    </div>
 
                                     <span style="margin-top: 10px;">
                                         Perdido
                                     </span>
                                     <mat-checkbox [(ngModel)]="checkFilterPerdidas" (click)="$event.stopPropagation();"
-                                        (change)="SetValues(); checkFilterPerdidas= true; getListFilter()"></mat-checkbox>
+                                        (change)="SetValues(); checkFilterPerdidas= $event.checked; getListFilter()"></mat-checkbox>
                                 </div>
 
                                 <div fxLayout="row" fxFlex="100">
-                                    <div style="background-color: #FE0003; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;"></div>
+                                    <div
+                                        style="background-color: #FE0003; width: 15px; height: 15px; margin-top: 15px; margin-right: 3px;">
+                                    </div>
 
                                     <span style="margin-top: 10px;">
                                         Perdidas Ampliamente
                                     </span>
-                                    <mat-checkbox [(ngModel)]="checkFilterPerdidasMayor" (click)="$event.stopPropagation();"
-                                        (change)="SetValues(); checkFilterPerdidasMayor = true; getListFilter()"></mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="checkFilterPerdidasMayor"
+                                        (click)="$event.stopPropagation();"
+                                        (change)="SetValues(); checkFilterPerdidasMayor = $event.checked; getListFilter()"></mat-checkbox>
                                 </div>
 
-                               
+
                             </mat-menu>
                             <mat-menu #menuConfig="matMenu">
-                                <div fxLayout="row" fxLayoutAlign="center" fxFlexAlign="center"><input type="number" class="form-control" (click)="$event.stopPropagation();"
+                                <div fxLayout="row" fxLayoutAlign="center" fxFlexAlign="center"><input type="number"
+                                        class="form-control" (click)="$event.stopPropagation();"
                                         [(ngModel)]="porcentaje"> <mat-icon (click)="getListFilter()">save</mat-icon>
                                 </div>
                             </mat-menu>
@@ -203,22 +224,24 @@
 
                     </div>
                     <div fxLayout="row" fxFlex="100" class="containerList">
-                        <mat-table [dataSource]="dataSource" class=" mat-elevation-z8">
+                        <mat-table [dataSource]="dataSource" class=" mat-elevation-z8" >
                             <ng-container matColumnDef="Color">
                                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                                <mat-cell mat-cell *matCellDef="let element" [ngStyle]="{
-                                        'background-color': 
+                                <mat-cell mat-cell *matCellDef="let element" >
+                            
+                            <div class="divClasificacionColor" [ngStyle]="{
+                                'background-color': 
 
-                                        element.Partido_Ganador == 'MORENA' ?
-                                        element.DiferenciaSegundo > this.porcentaje ? '#005100' :
-                                        element.DiferenciaSegundo <= this.porcentaje && element.DiferenciaSegundo > 5 ? '#00AE00'
-                                        :'#9EFFA2' 
-                                        :
-                                        element.DiferenciaMorena <= 5 ? '#FFA29D': 
-                                        element.DiferenciaMorena <=10  &&  element.DiferenciaMorena  >5 ? '#FD4140':
-                                        '#FE0003'
-                                         }">
-                                </mat-cell>
+                                element.Partido_Ganador == 'MORENA' ?
+                                element.DiferenciaSegundo > this.porcentaje ? '#005100' :
+                                element.DiferenciaSegundo <= this.porcentaje && element.DiferenciaSegundo > 5 ? '#00AE00'
+                                :'#9EFFA2' 
+                                :
+                                element.DiferenciaMorena <= 5 ? '#FFA29D': 
+                                element.DiferenciaMorena <=10  &&  element.DiferenciaMorena  >5 ? '#FD4140':
+                                '#FE0003'
+                                 }"></div>
+                            </mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="Distrito">
                                 <mat-header-cell *matHeaderCellDef>Distrito</mat-header-cell>

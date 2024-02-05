@@ -26,6 +26,7 @@ export class EstadisticasComponent implements AfterViewInit {
   checkFilterGanadas = false;
   checkFilterPerdidas = false;
   porcentaje: number = 10;
+  DefaultCircunscripcion = 4;
 
 
   resultGlobal: EstadisticasGlobal;
@@ -58,7 +59,7 @@ export class EstadisticasComponent implements AfterViewInit {
       Id_Estado: [null],
       Id_Distrito: [null]
     });
-    this.GetCircunscripciones();
+    this.initApp();
   }
 
 
@@ -67,9 +68,11 @@ export class EstadisticasComponent implements AfterViewInit {
 
   }
 
-
-  async GetCircunscripciones() {
+  async initApp() {
+    this.spinnerService.show("ngxall")
     this.listCircunscripcion = await this.catService.getCircunscripcion();
+    this.listEstados =  await this.catService.getEstado(4);
+    this.spinnerService.hide("ngxall")
   }
 
   async changeCircunscripcion(value) {
